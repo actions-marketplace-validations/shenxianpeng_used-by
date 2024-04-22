@@ -10,7 +10,7 @@ jobs:
   used-by:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.1.3
       - uses: shenxianpeng/used-by@main
         with:
           repo: '${{ github.repository }}' # current repository
