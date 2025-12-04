@@ -33,17 +33,15 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Install used-by
+    - name: Install and run used-by
       shell: bash
       run: |
+        python3 -m venv venv
+        source venv/bin/activate
         # try to fix https://github.com/pypa/setuptools/issues/3269
         python3 -m pip install pip -U
-        pip install git+https://github.com/shenxianpeng/used-by.git@main
+        pip install -r "$GITHUB_ACTION_PATH/requirements.txt"
 
-    - name: Run used-by
-      id: used-by
-      shell: bash
-      run: |
         used-by \
          --repo="${{ inputs.repo }}" \
          --file-path="${{ inputs.file-path }}" \

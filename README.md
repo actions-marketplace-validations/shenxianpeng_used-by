@@ -1,32 +1,33 @@
 # Used By
 
+[![Used by](https://img.shields.io/static/v1?label=Used%20by&message=4&color=informational&logo=slickpic)](https://github.com/shenxianpeng/used-by/network/dependents)<!-- used by badge -->
 [![main](https://github.com/shenxianpeng/used-by/actions/workflows/main.yml/badge.svg)](https://github.com/shenxianpeng/used-by/actions/workflows/main.yml)
-[![Used by](https://img.shields.io/static/v1?label=Used%20by&message=0&color=informational&logo=slickpic)](https://github.com/shenxianpeng/used-by/network/dependents)<!-- used by badge -->
 [![pre-commit](https://github.com/shenxianpeng/used-by/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/shenxianpeng/used-by/actions/workflows/pre-commit.yml)
+[![codecov](https://codecov.io/github/shenxianpeng/used-by/graph/badge.svg?token=QDO4MCI87B)](https://codecov.io/github/shenxianpeng/used-by)
 
-Generate Used By badge from GitHub dependents information.
+Create and update Used By badge by leveraging GitHub's dependencies information via a pull request.
 
 ## Usage
 
 ### Run as GitHub Action
 
-Create a new GitHub Actions workflow in your project, e.g. at [.github/workflows/used-by.yml](.github/workflows/used-by.yml)
+Create a new GitHub Actions workflow in your project, e.g. at `.github/workflows/used-by.yml`
 
 ```yaml
     steps:
       - uses: actions/checkout@v4
-      - uses: shenxianpeng/used-by@v2
+      - uses: shenxianpeng/used-by@main # or tag
         with:
           repo: '${{ github.repository }}' # current repository
           update-badge: 'true'
 
-      # create pull request if any changes
+      # create pull request if changed
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
           add-paths: "README.md" # the file path to commit
           commit-message: "chore: update used-by badge by github-actions[bot]"
-          title: "chore: automatically update used-by badge"
+          title: "chore: automatic update used-by badge"
           base: main
           labels: documentation
           delete-branch: true
@@ -105,12 +106,12 @@ $ used-by --repo shenxianpeng/used-by
 
 Copy following content to show Used By badge in your repository README.
 
-[![Used by](https://img.shields.io/static/v1?label=Used%20by&message=0&color=informational&logo=slickpic)](https://github.com/shenxianpeng/used-by/network/dependents)<!-- used by badge -->
+[![Used by](https://img.shields.io/static/v1?label=Used%20by&message=4&color=informational&logo=slickpic)](https://github.com/shenxianpeng/used-by/network/dependents)<!-- used by badge -->
 
 **Markdown**
 
 ```
-[![Used by](https://img.shields.io/static/v1?label=Used%20by&message=0&color=informational&logo=slickpic)](https://github.com/shenxianpeng/used-by/network/dependents)<!-- used by badge -->
+[![Used by](https://img.shields.io/static/v1?label=Used%20by&message=4&color=informational&logo=slickpic)](https://github.com/shenxianpeng/used-by/network/dependents)<!-- used by badge -->
 ```
 
 **reStructuredText**

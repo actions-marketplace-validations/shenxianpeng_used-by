@@ -22,9 +22,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Set up Python 3.10
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.10"
 
@@ -32,7 +32,7 @@ jobs:
         run: python -m pip wheel -w dist .
 
       - name: Upload wheel as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: used-by_wheel
           path: dist/*.whl
@@ -43,15 +43,14 @@ jobs:
           python3 -m pip install . -r requirements-dev.txt
 
       - name: Collect Coverage
-        run: coverage run -m pytest -vv
+        run: |
+          coverage run -m pytest -vv
+          coverage report && coverage xml
 
-      - name: Upload coverage data
-        uses: actions/upload-artifact@v4
+      - uses: codecov/codecov-action@v5
+        env:
+          CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
         with:
-          name: coverage-data-${{ runner.os }}
-          path: .coverage*
-
-  coverage:
-    needs: [build]
-    uses: shenxianpeng/.github/.github/workflows/py-coverage.yml@main
-    secrets: inherit
+          files: ./coverage.xml
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
